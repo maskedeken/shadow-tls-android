@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.github.shadowsocks.plugin.shadowtls"
+    android:installLocation="internalOnly">
+
+    <application android:allowBackup="false"
+        android:extractNativeLibs="true"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher">
+        <provider android:name=".BinaryProvider"
+            android:exported="true"
+            android:directBootAware="true"
+            android:authorities="com.github.shadowsocks.plugin.shadowtls.BinaryProvider"
+            tools:ignore="ExportedContentProvider">
+            <intent-filter>
+                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.github.shadowsocks.plugin.ACTION_NATIVE_PLUGIN"/>
+                <data android:scheme="plugin"
+                    android:host="com.github.shadowsocks"
+                    android:path="/shadow-tls"/>
+            </intent-filter>
+            <meta-data android:name="com.github.shadowsocks.plugin.id"
+                android:value="shadow-tls"/>
+            <meta-data android:name="com.github.shadowsocks.plugin.executable_path"
+                android:value="libshadow-tls.so"/>
+        </provider>
+        <activity android:name=".ConfigActivity"
+            android:theme="@style/Theme.Shadowsocks.Immersive">
+            <intent-filter>
+                <action android:name="com.github.shadowsocks.plugin.ACTION_CONFIGURE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="plugin"
+                    android:host="com.github.shadowsocks"
+                    android:path="/shadow-tls"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
