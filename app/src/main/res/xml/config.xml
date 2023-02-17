@@ -17,5 +17,10 @@
         app:persistent="false"
         app:title="Threads"
         app:useSimpleSummaryProvider="true"/>
+    <CheckBoxPreference
+        app:key="v3"
+        app:persistent="false"
+        app:title="Enable V3 protocol"
+        app:useSimpleSummaryProvider="true"/>
     </PreferenceCategory>
 </PreferenceScreen>

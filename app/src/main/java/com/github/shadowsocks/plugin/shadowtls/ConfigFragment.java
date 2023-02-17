@@ -8,11 +8,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.CheckBoxPreference;
-import androidx.preference.Preference;
-import androidx.preference.ListPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.Preference.OnPreferenceChangeListener;
+
 import com.github.shadowsocks.plugin.PluginOptions;
 
 
@@ -20,13 +18,18 @@ public class ConfigFragment extends PreferenceFragmentCompat {
     private EditTextPreference sni;
     private EditTextPreference password;
     private EditTextPreference threads;
+    private CheckBoxPreference v3;
 
     public PluginOptions getOptions() {
         PluginOptions options = new PluginOptions();
-        options.put("sni", this.sni.getText());
-        options.put("password", this.password.getText());
+        options.put("host", this.sni.getText());
+        options.put("passwd", this.password.getText());
         if (!isNullOrEmpty(this.threads.getText())) {
             options.put("threads", this.threads.getText());
+        }
+
+        if (this.v3.isChecked()) {
+            options.put("v3", "1");
         }
 
         return options;
@@ -39,6 +42,7 @@ public class ConfigFragment extends PreferenceFragmentCompat {
         this.sni = this.findPreference("sni");
         this.password = this.findPreference("password");
         this.threads = this.findPreference("threads");
+        this.v3 = this.findPreference("v3");
 
         this.threads.setOnBindEditTextListener(it -> {
             it.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -56,9 +60,10 @@ public class ConfigFragment extends PreferenceFragmentCompat {
     }
 
     public void onInitializePluginOptions(PluginOptions options) {
-        this.sni.setText(options.containsKey("sni") ? options.get("sni") : "");
-        this.password.setText(options.containsKey("password") ? options.get("password") : "");
+        this.sni.setText(options.containsKey("host") ? options.get("host") : "");
+        this.password.setText(options.containsKey("passwd") ? options.get("passwd") : "");
         this.threads.setText(options.containsKey("threads") ? options.get("threads") : "");
+        this.v3.setChecked(options.containsKey("v3"));
     }
 
     private static boolean isNullOrEmpty(@Nullable String string) {
