@@ -19,6 +19,7 @@ public class ConfigFragment extends PreferenceFragmentCompat {
     private EditTextPreference password;
     private EditTextPreference threads;
     private CheckBoxPreference v3;
+    private CheckBoxPreference fastopen;
 
     public PluginOptions getOptions() {
         PluginOptions options = new PluginOptions();
@@ -32,6 +33,10 @@ public class ConfigFragment extends PreferenceFragmentCompat {
             options.put("v3", "1");
         }
 
+        if (this.fastopen.isChecked()) {
+            options.put("fastopen", "1");
+        }
+
         return options;
     }
 
@@ -43,6 +48,7 @@ public class ConfigFragment extends PreferenceFragmentCompat {
         this.password = this.findPreference("password");
         this.threads = this.findPreference("threads");
         this.v3 = this.findPreference("v3");
+        this.fastopen = this.findPreference("fastopen");
 
         this.threads.setOnBindEditTextListener(it -> {
             it.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -64,6 +70,7 @@ public class ConfigFragment extends PreferenceFragmentCompat {
         this.password.setText(options.containsKey("passwd") ? options.get("passwd") : "");
         this.threads.setText(options.containsKey("threads") ? options.get("threads") : "");
         this.v3.setChecked(options.containsKey("v3"));
+        this.fastopen.setChecked(options.containsKey("fastopen"));
     }
 
     private static boolean isNullOrEmpty(@Nullable String string) {

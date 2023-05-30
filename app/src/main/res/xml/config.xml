@@ -20,7 +20,12 @@
     <CheckBoxPreference
         app:key="v3"
         app:persistent="false"
-        app:title="Enable V3 protocol"
+        app:title="Use V3 protocol"
+        app:useSimpleSummaryProvider="true"/>
+    <CheckBoxPreference
+        app:key="fastopen"
+        app:persistent="false"
+        app:title="Enable TCP_FASTOPEN"
         app:useSimpleSummaryProvider="true"/>
     </PreferenceCategory>
 </PreferenceScreen>
